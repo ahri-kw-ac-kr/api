@@ -10,7 +10,7 @@ import local.project.api.model.DefaultEntity;
 public class DefaultService<T extends DefaultEntity> {
 	
 	@Autowired
-	private CrudRepository<T, Long> repository;
+	protected CrudRepository<T, Long> repository;
 	
 	public Iterable<T> getAll() {
 		return repository.findAll();

@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import local.project.api.dto.PageDTO;
 import local.project.api.model.DocumentEntity;
 import local.project.api.service.DocumentService;
 
@@ -23,9 +25,9 @@ public class DocumentController {
 	private DocumentService documentService;
 
 
-	@RequestMapping()
-	public Iterable<DocumentEntity> getAll() {
-		return documentService.getAll();
+	@RequestMapping(method = RequestMethod.POST)
+	public Iterable<DocumentEntity> getAll(@RequestBody PageDTO page) {
+		return documentService.getAll(page);
 	}
 
 	@RequestMapping(value = "/{id}")
