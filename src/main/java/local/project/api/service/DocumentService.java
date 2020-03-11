@@ -15,8 +15,8 @@ public class DocumentService extends DefaultService<DocumentEntity> {
     @Autowired
     private DocumentRepository documentRepository;
 
-    public Page<DocumentEntity> getAll(PageDTO page) {
-        return documentRepository.findAll(page.toPageRequest());
+    public Page<DocumentEntity> getAll(int page) {
+        return documentRepository.findAll(PageRequest.of(page, 20));
 	}
 	
 	

@@ -20,17 +20,17 @@ public class DefaultEntity {
     private long id;
     
     @Basic(optional = false)
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @Column(name = "updated_at", insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
     @Basic(optional = false)
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Basic(optional = false)
-    @Column(name = "is_del")
+    @Column(name = "is_del", columnDefinition = "boolean default false")
     private boolean isDel = false;
 
     @PrePersist

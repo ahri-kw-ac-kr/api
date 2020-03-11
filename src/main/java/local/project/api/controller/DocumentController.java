@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import local.project.api.dto.PageDTO;
 import local.project.api.model.DocumentEntity;
 import local.project.api.service.DocumentService;
 
@@ -26,8 +26,15 @@ public class DocumentController {
 
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Iterable<DocumentEntity> getAll(@RequestBody PageDTO page) {
-		return documentService.getAll(page);
+	public Iterable<DocumentEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page) {
+		int p = Integer.parseInt(page);
+		return documentService.getAll(p);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT)
+	public DocumentEntity insert(@RequestBody DocumentEntity entity) {
+		System.out.println(entity.getTitle());
+		return documentService.insert(entity);
 	}
 
 	@RequestMapping(value = "/{id}")
