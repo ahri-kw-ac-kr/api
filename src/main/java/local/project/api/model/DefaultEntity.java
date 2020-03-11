@@ -31,7 +31,7 @@ public class DefaultEntity {
 
     @Basic(optional = false)
     @Column(name = "is_del")
-    private boolean is_del = false;
+    private boolean isDel = false;
 
     @PrePersist
     void preInsert() {
@@ -39,5 +39,61 @@ public class DefaultEntity {
         if (this.createdAt == null) {
             this.createdAt = new Date();
         }
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param updatedAt the updatedAt to set
+     */
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * @return the updatedAt
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * @param isDel the isDel to set
+     */
+    public void setDel(boolean isDel) {
+        this.isDel = isDel;
+    }
+
+    /**
+     * @return the isDel
+     */
+    public boolean isDel() {
+        return isDel;
     }
 }
