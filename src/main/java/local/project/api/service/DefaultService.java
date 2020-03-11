@@ -10,13 +10,13 @@ import local.project.api.model.DefaultEntity;
 public class DefaultService<T extends DefaultEntity> {
 	
 	@Autowired
-	private CrudRepository<T, Integer> repository;
+	private CrudRepository<T, Long> repository;
 	
-	public Iterable<T> list() {
+	public Iterable<T> getAll() {
 		return repository.findAll();
 	}
 	
-	public Optional<T> get(Integer id) {
+	public Optional<T> get(Long id) {
 		return repository.findById(id);
 	}
     
@@ -28,8 +28,16 @@ public class DefaultService<T extends DefaultEntity> {
 		return repository.save(entity);
 	}
 
-	public T delete(T entity) {
+	public Iterable<T> dumpUpdate(Iterable<T> entity) {
+		return repository.saveAll(entity);
+	}
+
+	public Boolean delete(Long id) {
+		Optional<T> optionalEntity = repository.findById(id);
+		if (!optionalEntity.isPresent()) { return false; }
+		T entity = optionalEntity.get();
 		entity.setDel(true);
-		return repository.save(entity);
+		repository.save(entity);
+		return true;
 	}
 }
