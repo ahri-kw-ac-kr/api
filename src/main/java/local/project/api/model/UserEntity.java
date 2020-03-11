@@ -1,12 +1,25 @@
 package local.project.api.model;
 
-public class UserDTO {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
+public class UserEntity extends DefaultEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Column
 	private String username;
+	@Column
+	@JsonIgnore
 	private String password;
 
 	public String getUsername() {
 		return username;
-	}
+	}	
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -19,4 +32,5 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

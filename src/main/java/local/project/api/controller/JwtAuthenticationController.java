@@ -1,9 +1,9 @@
 package local.project.api.controller;
 
 import local.project.api.config.JwtTokenUtil;
-import local.project.api.model.JwtRequest;
-import local.project.api.model.JwtResponse;
-import local.project.api.model.UserDTO;
+import local.project.api.dto.JwtRequest;
+import local.project.api.dto.JwtResponse;
+import local.project.api.model.UserEntity;
 import local.project.api.service.JwtUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class JwtAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+	public ResponseEntity<?> saveUser(@RequestBody UserEntity user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 

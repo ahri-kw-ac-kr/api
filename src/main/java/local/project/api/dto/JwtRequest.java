@@ -1,4 +1,4 @@
-package local.project.api.model;
+package local.project.api.dto;
 
 import java.io.Serializable;
 
