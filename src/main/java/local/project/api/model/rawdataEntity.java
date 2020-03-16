@@ -13,6 +13,7 @@ public class rawdataEntity extends DefaultEntity {
 	@Column
 	private int s_tick, e_tick, t_lux;
 	@Column
+
 	private short steps, avg_lux, avg_k, vector_x, vector_y, vector_z;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
