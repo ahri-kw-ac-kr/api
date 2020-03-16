@@ -5,17 +5,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import local.project.api.model.rawdataEntity;
-import local.project.api.model.rawdataRepository;
+import local.project.api.model.RawdataEntity;
+import local.project.api.model.RawdataRepository;
 
 @Service
-public class rawdataService extends DefaultService<rawdataEntity> {
+public class RawdataService extends DefaultService<RawdataEntity> {
 
     @Autowired
-    private rawdataRepository rawdataRepository;
+    private RawdataRepository RawdataRepository;
 
-    public Page<rawdataEntity> getAll(int page) {
-        return rawdataRepository.findAllByIsDelFalse(PageRequest.of(page, 20));
+    public Page<RawdataEntity> getAll(int page) {
+        return RawdataRepository.findAllByIsDelFalse(PageRequest.of(page, 20));
 	}
 	
 	

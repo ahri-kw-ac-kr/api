@@ -8,36 +8,35 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "rawdata")
-public class rawdataEntity extends DefaultEntity {
+public class RawdataEntity extends DefaultEntity {
 
 	@Column
-	private int s_tick, e_tick, t_lux;
+	private int startTick, endTick, totalLux;
 	@Column
-
-	private short steps, avg_lux, avg_k, vector_x, vector_y, vector_z;
+	private short steps, avgLux, avgTemp, vectorX, vectorY, vectorZ;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserEntity user;
 
-	public int getS_tick() { 
-		return s_tick;
+	public int getStartTick() { 
+		return startTick;
 	}
-	public void setS_tick(int s_tick) {
-		this.s_tick = s_tick;
-	}
-
-	public int getE_tick() { 
-		return e_tick;
-	}
-	public void setE_tick(int e_tick) {
-		this.e_tick = e_tick;
+	public void setStartTick(int startTick) {
+		this.startTick = startTick;
 	}
 
-	public int getT_lux() { 
-		return t_lux;
+	public int getEndTick() { 
+		return endTick;
 	}
-	public void setT_lux(int t_lux) {
-		this.t_lux = t_lux;
+	public void setEndTick(int endTick) {
+		this.endTick = endTick;
+	}
+
+	public int getTotalLux() { 
+		return totalLux;
+	}
+	public void setTotalLux(int totalLux) {
+		this.totalLux = totalLux;
 	}
 
 	public short getSteps() { 
@@ -47,39 +46,39 @@ public class rawdataEntity extends DefaultEntity {
 		this.steps = steps;
 	}
 
-	public short getAvg_lux() { 
-		return avg_lux;
+	public short getAvgLux() { 
+		return avgLux;
 	}
-	public void setAvg_lux(short avg_lux) {
-		this.avg_lux = avg_lux;
-	}
-
-	public short getAvg_k() { 
-		return avg_k;
-	}
-	public void setAvg_k(short avg_k) {
-		this.avg_k = avg_k;
+	public void setAvgLux(short avgLux) {
+		this.avgLux = avgLux;
 	}
 
-	public short getVector_x() { 
-		return vector_x;
+	public short getAvgTemp() { 
+		return avgTemp;
 	}
-	public void setVector_x(short vector_x) {
-		this.vector_x = vector_x;
-	}
-
-	public short getVector_y() { 
-		return vector_y;
-	}
-	public void setVector_y(short vector_y) {
-		this.vector_y = vector_y;
+	public void setAvgTemp(short avgTemp) {
+		this.avgTemp = avgTemp;
 	}
 
-	public short getVector_z() { 
-		return vector_z;
+	public short getVectorX() { 
+		return vectorX;
 	}
-	public void setVector_z(short vector_z) {
-		this.vector_z = vector_z;
+	public void setVectorX(short vectorX) {
+		this.vectorX = vectorX;
+	}
+
+	public short getVectorY() { 
+		return vectorY;
+	}
+	public void setVectorY(short vectorY) {
+		this.vectorY = vectorY;
+	}
+
+	public short getVectorZ() { 
+		return vectorZ;
+	}
+	public void setVectorZ(short vectorZ) {
+		this.vectorZ = vectorZ;
 	}
 
 	public UserEntity getUser() {

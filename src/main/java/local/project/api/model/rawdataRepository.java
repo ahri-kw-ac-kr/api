@@ -6,6 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface rawdataRepository extends PagingAndSortingRepository<rawdataEntity, Long> {
-    Page<rawdataEntity> findAllByIsDelFalse(Pageable pageable);
+public interface RawdataRepository extends PagingAndSortingRepository<RawdataEntity, Long> {
+    Page<RawdataEntity> findAllByIsDelFalse(Pageable pageable);
 } 
