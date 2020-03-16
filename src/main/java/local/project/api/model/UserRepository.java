@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import local.project.api.model.UserEntity;
 
+/*그냥 docuemnt예제 유저 아니어도 되는건가..?*/
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 	
