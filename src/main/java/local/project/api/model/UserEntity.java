@@ -1,34 +1,65 @@
 package local.project.api.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "user")
-public class UserEntity extends DefaultEntity {
+@Table(name = "document")
+public class DocumentEntity extends DefaultEntity {
+
 	@Column
-	private String username;
+	private String title;
 	@Column
-	@JsonIgnore
-	private String password;
+	private String content;
 
-	public String getUsername() {
-		return username;
-	}	
 
-	public void setUsername(String username) {
-		this.username = username;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private UserEntity user;
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() { 
+		return title;
+	}
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getPassword() {
-		return password;
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
 	}
 
+
+
+	/**
+	 * @return the user
+	 */
+	public UserEntity getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+	
 }
