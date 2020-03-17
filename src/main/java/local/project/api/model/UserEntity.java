@@ -8,12 +8,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user")
+
 public class UserEntity extends DefaultEntity {
+/*선언*/	
+	@Column
+	private String loginid;
+
 	@Column
 	private String username;
+
 	@Column
 	@JsonIgnore
 	private String password;
+
+	@Column
+	private char sex;
+
+	@Column
+	private String birth;
+
+	@Column
+	private String phone;
+
+
+
+	public String getLoginid() {
+		return loginid;
+	}
+
+	public void setLoginid(String loginid) {
+		this.loginid = loginid;
+	}
+
 
 	public String getUsername() {
 		return username;
@@ -23,6 +49,7 @@ public class UserEntity extends DefaultEntity {
 		this.username = username;
 	}
 
+
 	public String getPassword() {
 		return password;
 	}
@@ -31,4 +58,31 @@ public class UserEntity extends DefaultEntity {
 		this.password = password;
 	}
 
+
+	public char getSex() {
+		return sex;
+
+	}
+
+	public void setSex(char sex){
+		this.sex = sex;
+	}
+
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth){
+		this.birth = birth;
+	}
+
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }
