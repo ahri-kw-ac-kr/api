@@ -16,7 +16,9 @@ public class RawdataService extends DefaultService<RawdataEntity> {
 
     public Page<RawdataEntity> getAll(int page) {
         return RawdataRepository.findAllByIsDelFalse(PageRequest.of(page, 20));
+    }
+    
+    public Page<RawdataEntity> getAllByUserId(Long userId, int page) {
+        return RawdataRepository.findAllByUserId(userId, PageRequest.of(page, 20));
 	}
-	
-	
 }
