@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RawdataRepository extends PagingAndSortingRepository<RawdataEntity, Long> {
     Page<RawdataEntity> findAllByIsDelFalse(Pageable pageable);
+    Page<RawdataEntity> findAllByUserId(Long userId, Pageable pageable);
 } 

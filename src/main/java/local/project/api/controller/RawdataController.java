@@ -22,24 +22,24 @@ public class RawdataController {
 
 
 	@Autowired
-	private RawdataService RawdataService;
+	private RawdataService rawdataService;
 
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Iterable<RawdataEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page) {
 		int p = Integer.parseInt(page);
-		return RawdataService.getAll(p);
+		return rawdataService.getAll(p);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public RawdataEntity insert(@RequestBody RawdataEntity entity) {
 		System.out.println(entity.getUser());
-		return RawdataService.insert(entity);
+		return rawdataService.insert(entity);
 	}
 
 	@RequestMapping(value = "/{id}")
 	public RawdataEntity get(@PathVariable Long id) {
-		Optional<RawdataEntity> entity = RawdataService.get(id);
+		Optional<RawdataEntity> entity = rawdataService.get(id);
 		if (!entity.isPresent()) {
 			throw new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "entity not found"
@@ -50,17 +50,17 @@ public class RawdataController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
 	public RawdataEntity patch(@PathVariable Long id, RawdataEntity rawdataEntity) {
-		return RawdataService.update(rawdataEntity);
+		return rawdataService.update(rawdataEntity);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH)
 	public Iterable<RawdataEntity> dumpPatch(List<RawdataEntity> rawdataEntity) {
-		return RawdataService.dumpUpdate(rawdataEntity);
+		return rawdataService.dumpUpdate(rawdataEntity);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public Boolean delete(@PathVariable Long id) {
-		return RawdataService.delete(id);
+		return rawdataService.delete(id);
 	}
 
 }
