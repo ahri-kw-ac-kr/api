@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<UserEntity, Long> {
-	
 	Page<UserEntity> findAllByIsDelFalse(Pageable pageable);
 	UserEntity findByUsername(String username);
 	static UserEntity getById(String loginid) {

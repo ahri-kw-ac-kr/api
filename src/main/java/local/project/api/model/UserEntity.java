@@ -1,13 +1,16 @@
 package local.project.api.model;
 
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Entity
@@ -16,14 +19,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserEntity extends DefaultEntity {	
 
 	@Column(unique=true, nullable=false)
-	private String loginid;
-
-	@Column(nullable=false)
 	private String username;
 
 	@Column(nullable=false)
-	//@JsonIgnore
+	private String fullname;
+
+	@Column(nullable=false)
+	@JsonProperty( access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
+
+	@Transient
+	private transient String newPassword;
 
 	@Column
 	private char sex;
@@ -37,21 +43,34 @@ public class UserEntity extends DefaultEntity {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<UserEntity> friend;
 
-
-	
 	/**
-	 * @return the loginid
+	 * @return the newPassword
 	 */
-	public String getLoginid() {
-		return loginid;
+	public String getNewPassword() {
+		return newPassword;
 	}
 
 	/**
-	 * @param loginid the loginid to set
+	 * @param newPassword the newPassword to set
 	 */
-	public void setLoginid(String loginid) {
-		this.loginid = loginid;
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
+
+	/**
+	 * @return the fullname
+	 */
+	public String getFullname() {
+		return fullname;
+	}
+
+	/**
+	 * @param fullname the fullname to set
+	 */
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
 	
 	/**
 	 * @return the username
@@ -70,6 +89,7 @@ public class UserEntity extends DefaultEntity {
 	/**
 	 * @return the password
 	 */
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
