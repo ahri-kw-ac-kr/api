@@ -12,13 +12,13 @@ import local.project.api.model.RawdataRepository;
 public class RawdataService extends DefaultService<RawdataEntity> {
 
     @Autowired
-    private RawdataRepository RawdataRepository;
+    private RawdataRepository rawdataRepository;
 
     public Page<RawdataEntity> getAll(int page) {
-        return RawdataRepository.findAllByIsDelFalse(PageRequest.of(page, 20));
+        return rawdataRepository.findAllByIsDelFalse(PageRequest.of(page, 20));
     }
     
     public Page<RawdataEntity> getAllByUserId(Long userId, int page) {
-        return RawdataRepository.findAllByUserId(userId, PageRequest.of(page, 20));
+        return rawdataRepository.findAllByUserId(userId, PageRequest.of(page, 20));
 	}
 }
