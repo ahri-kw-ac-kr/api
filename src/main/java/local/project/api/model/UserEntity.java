@@ -9,15 +9,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "user")
 
-public class UserEntity extends DefaultEntity {
-/*선언*/	
-	@Column
+public class UserEntity extends DefaultEntity {	
+	@Column(unique=true, nullable=false)
 	private String loginid;
 
-	@Column
+	@Column(nullable=false)
 	private String username;
 
-	@Column
+	@Column(nullable=false)
 	@JsonIgnore
 	private String password;
 
