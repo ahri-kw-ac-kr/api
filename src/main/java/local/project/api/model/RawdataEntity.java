@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class RawdataEntity extends DefaultEntity {
 
 	@Column
-	private int startTickx;
+	private int startTick;
 	@Column
 	private int endTick;
 	@Column
