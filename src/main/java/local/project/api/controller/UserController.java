@@ -83,13 +83,10 @@ public class UserController {
 		@PathVariable Long id,
 		@RequestParam(value = "page", defaultValue = "0") String page, String created_at_lt, String created_at_gt, Principal principal) {
 		
-		String requestid;
-		UserEntity requestUser;
-		List<UserEntity> filteredFriend;
 		
-		requestid = principal.getName();
-		requestUser = UserRepository.getById(requestid);
-		filteredFriend = requestUser.getFriend().filter(e -> e.id == id);
+		String requestid = principal.getName();
+		Optional<UserEntity> requestUser = UserRepository.findById(Long.parseLong(requestid));
+		List<UserEntity> filteredFriend = requestUser.getFriend().stream().filter(e -> e.id == id);
 		if (filteredFriend.length() == 0) {
 		  // Ä£±¸¾Æ´Ô
 		  return 405;
