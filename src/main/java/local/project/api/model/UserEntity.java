@@ -17,7 +17,7 @@ public class UserEntity extends DefaultEntity {
 	private String username;
 
 	@Column(nullable=false)
-	@JsonIgnore
+	//@JsonIgnore
 	private String password;
 
 	@Column

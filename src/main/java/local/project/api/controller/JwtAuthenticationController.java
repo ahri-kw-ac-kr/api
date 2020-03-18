@@ -50,6 +50,20 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
+	/// POST http://localgost:8080/register
+	/*{
+		"loginid":"aaa",
+		"username" : "bbb"
+		"password" : "ccc"
+	}
+
+	/// POST http://localgost:8080/authenticate
+	{
+			"loginid":"aaa",
+			"username" : "bbb"
+			"password" : "ccc"
+	}*/
+	
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

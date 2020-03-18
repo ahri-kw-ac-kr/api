@@ -1,5 +1,6 @@
 package local.project.api.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +31,9 @@ public class UserController {
 
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Iterable<UserEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page) {
+	public Iterable<UserEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page, Principal principal) {
 		int p = Integer.parseInt(page);
+		System.out.println(principal.getName());
 		return userService.getAll(p);
 	}
 
