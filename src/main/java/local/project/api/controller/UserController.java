@@ -82,16 +82,12 @@ public class UserController {
 	public Iterable<RawdataEntity> getRawdata(
 		@PathVariable Long id,
 		@RequestParam(value = "page", defaultValue = "0") String page, String created_at_lt, String created_at_gt, Principal principal) {
-		
-		
-		String requestid = principal.getName();
-		Optional<UserEntity> requestUser = UserRepository.findById(Long.parseLong(requestid));
-		List<UserEntity> filteredFriend = requestUser.getFriend().stream().filter(e -> e.id == id);
-		if (filteredFriend.length() == 0) {
-		  // 친구아님
-		  return 405;
-		}
+		String username = principal.getName();
+		UserEntity userEntity = userService.getByUsername(username);
 		int p = Integer.parseInt(page);
+		if (userService.isFriend(userEntity.getId(), id) == false) { 
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "권한없음");
+		}
 		return rawdataService.getAllByUserId(id, p);
 	}
 
