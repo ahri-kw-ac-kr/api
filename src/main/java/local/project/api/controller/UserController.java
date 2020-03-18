@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import local.project.api.model.RawdataEntity;
 import local.project.api.service.RawdataService;
 import local.project.api.model.UserEntity;
+import local.project.api.model.UserRepository;
 import local.project.api.service.UserService;
 
 @RestController
@@ -28,6 +30,9 @@ public class UserController {
 	
 	@Autowired
 	private RawdataService rawdataService;
+	
+	private String created_at_lt;
+	private String created_at_gt;
 
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -69,11 +74,26 @@ public class UserController {
 		return userService.delete(id);
 	}
 
+	// http://localhost:8080/user/{id}/rawdata/?page=0&created_at_lt=00&created_at_gt=00
 
+	
+	
 	@RequestMapping(value = "/{id}/rawdata")
 	public Iterable<RawdataEntity> getRawdata(
 		@PathVariable Long id,
-		@RequestParam(value = "page", defaultValue = "0") String page) {
+		@RequestParam(value = "page", defaultValue = "0") String page, String created_at_lt, String created_at_gt, Principal principal) {
+		
+		String requestid;
+		UserEntity requestUser;
+		List<UserEntity> filteredFriend;
+		
+		requestid = principal.getName();
+		requestUser = UserRepository.getById(requestid);
+		filteredFriend = requestUser.getFriend().filter(e -> e.id == id);
+		if (filteredFriend.length() == 0) {
+		  // Ä£±¸¾Æ´Ô
+		  return 405;
+		}
 		int p = Integer.parseInt(page);
 		return rawdataService.getAllByUserId(id, p);
 	}

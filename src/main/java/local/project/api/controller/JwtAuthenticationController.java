@@ -50,17 +50,17 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
-	/// POST http://localgost:8080/register
+	/// POST http://localhost:8080/register
 	/*{
 		"loginid":"aaa",
-		"username" : "bbb"
+		"username" : "bbb",
 		"password" : "ccc"
 	}
 
-	/// POST http://localgost:8080/authenticate
+	/// POST http://localhost:8080/authenticate
 	{
 			"loginid":"aaa",
-			"username" : "bbb"
+			"username" : "bbb",
 			"password" : "ccc"
 	}*/
 	
