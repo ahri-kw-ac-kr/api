@@ -11,9 +11,23 @@ import javax.persistence.Table;
 public class RawdataEntity extends DefaultEntity {
 
 	@Column
-	private int startTick, endTick, totalLux;
+	private int startTickx;
 	@Column
-	private short steps, avgLux, avgTemp, vectorX, vectorY, vectorZ;
+	private int endTick;
+	@Column
+	private int totalLux;
+	@Column
+	private short steps;
+	@Column
+	private short avgLux;
+	@Column
+	private short avgTemp;
+	@Column
+	private short vectorX;
+	@Column
+	private short vectorY;
+	@Column
+	private short vectorZ;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserEntity user;
