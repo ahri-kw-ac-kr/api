@@ -1,6 +1,9 @@
 package local.project.api.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,14 +84,18 @@ public class UserController {
 	@RequestMapping(value = "/{id}/rawdata")
 	public Iterable<RawdataEntity> getRawdata(
 		@PathVariable Long id,
-		@RequestParam(value = "page", defaultValue = "0") String page, String created_at_lt, String created_at_gt, Principal principal) {
-		String username = principal.getName();
-		UserEntity userEntity = userService.getByUsername(username);
-		int p = Integer.parseInt(page);
-		if (userService.isFriend(userEntity.getId(), id) == false) { 
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "권한없음");
-		}
-		return rawdataService.getAllByUserId(id, p);
+		@RequestParam(value = "page", defaultValue = "0") String page, String created_at_lt, String created_at_gt, Principal principal)
+				throws ParseException {
+					String username = principal.getName();
+					UserEntity userEntity = userService.getByUsername(username);
+					int p = Integer.parseInt(page);
+					if (userService.isFriend(userEntity.getId(), id) == false) { 
+						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
+					}
+					SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date cre_lt = transFormat.parse(created_at_lt);
+					Date cre_gt = transFormat.parse(created_at_gt);
+					return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
 	}
 
 }
