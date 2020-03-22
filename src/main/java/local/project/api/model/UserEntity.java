@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -15,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "user")
-
 public class UserEntity extends DefaultEntity {	
 
 	@Column(unique=true, nullable=false)
@@ -31,7 +31,7 @@ public class UserEntity extends DefaultEntity {
 	@Transient
 	private transient String newPassword;
 
-	@Column
+	@Column(nullable=true)
 	private char sex;
 
 	@Column
@@ -40,7 +40,7 @@ public class UserEntity extends DefaultEntity {
 	@Column
 	private String phone;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
 	private List<UserEntity> friend;
 
 	/**
