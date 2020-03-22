@@ -94,13 +94,10 @@ public class UserController {
 				}	
 	
 	
-	@RequestMapping(value = "{id}/friend")
-	public List<UserEntity> getFriend(@PathVariable Long id) {
-		Optional<UserEntity> entity = userService.get(id);
-		if (!entity.isPresent()) {
-			throw new ResponseStatusException(
-				HttpStatus.NOT_FOUND, "entity not found");
-		}
-		return entity.get().getFriend();
+	@RequestMapping(value = "/friend")
+	public List<UserEntity> getFriend(Principal principal) {
+		String username = principal.getName();
+		UserEntity userEntity = userService.getByUsername(username);
+		return userEntity.getFriend();
 	}
 }
