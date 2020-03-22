@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -41,6 +42,7 @@ public class UserEntity extends DefaultEntity {
 	private String phone;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JsonBackReference
 	private List<UserEntity> friend;
 
 	/**

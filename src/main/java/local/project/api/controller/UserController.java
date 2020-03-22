@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 import local.project.api.model.RawdataEntity;
 import local.project.api.service.RawdataService;
 import local.project.api.model.UserEntity;
-import local.project.api.model.UserRepository;
 import local.project.api.service.UserService;
 
 @RestController
@@ -34,9 +32,6 @@ public class UserController {
 	@Autowired
 	private RawdataService rawdataService;
 	
-	private String created_at_lt;
-	private String created_at_gt;
-
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Iterable<UserEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page, Principal principal) {
@@ -96,6 +91,16 @@ public class UserController {
 					Date cre_lt = transFormat.parse(created_at_lt);
 					Date cre_gt = transFormat.parse(created_at_gt);
 					return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
+				}	
+	
+	
+	@RequestMapping(value = "{id}/friend")
+	public List<UserEntity> getFriend(@PathVariable Long id) {
+		Optional<UserEntity> entity = userService.get(id);
+		if (!entity.isPresent()) {
+			throw new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "entity not found");
+		}
+		return entity.get().getFriend();
 	}
-
 }
