@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import local.project.api.model.RawdataEntity;
-import local.project.api.service.RawdataService;
 import local.project.api.model.UserEntity;
-import local.project.api.model.UserRepository;
+import local.project.api.service.RawdataService;
 import local.project.api.service.UserService;
 
 @RestController
