@@ -5,33 +5,35 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 
 @Entity
 @Table(name = "user")
-public class UserEntity extends DefaultEntity {	
+@JsonIdentityInfo(generator = IntSequenceGenerator.class)
+public class UserEntity extends DefaultEntity {
 
-	@Column(unique=true, nullable=false)
+	@Column(unique = true, nullable = false)
 	private String username;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String fullname;
 
-	@Column(nullable=false)
-	@JsonProperty( access = JsonProperty.Access.WRITE_ONLY)
+	@Column(nullable = false)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
 	@Transient
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private transient String newPassword;
 
-	@Column(nullable=true)
+	@Column(nullable = true)
 	private char sex;
 
 	@Column
@@ -40,7 +42,7 @@ public class UserEntity extends DefaultEntity {
 	@Column
 	private String phone;
 
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<UserEntity> friend;
 
 	/**
@@ -71,7 +73,6 @@ public class UserEntity extends DefaultEntity {
 		this.fullname = fullname;
 	}
 
-	
 	/**
 	 * @return the username
 	 */
@@ -128,7 +129,7 @@ public class UserEntity extends DefaultEntity {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	
+
 	/**
 	 * @return the phone
 	 */

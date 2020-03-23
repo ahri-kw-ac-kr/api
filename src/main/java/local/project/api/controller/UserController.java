@@ -31,6 +31,7 @@ public class UserController {
 	
 	@Autowired
 	private RawdataService rawdataService;
+	
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Iterable<UserEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page, Principal principal) {
@@ -84,20 +85,27 @@ public class UserController {
 		Principal principal )
 		throws ParseException {
 
-			String username = principal.getName();
-			UserEntity userEntity = userService.getByUsername(username);
-			int p = Integer.parseInt(page);
+		String username = principal.getName();
+		UserEntity userEntity = userService.getByUsername(username);
+		int p = Integer.parseInt(page);	
 
-			// 요청한 유저가 {id}와 친구가 아닌 경우
-			if (userService.isFriend(userEntity.getId(), id) == false) { 
-				throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
-			}
+		// 요청한 유저가 {id}와 친구가 아닌 경우
+		if (userService.isFriend(userEntity.getId(), id) == false) { 
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
+		}
 
-			// 요청한 유저가 {id}와 친구인 경우
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date cre_lt = transFormat.parse(created_at_lt);
-			Date cre_gt = transFormat.parse(created_at_gt);
-			return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
+		// 요청한 유저가 {id}와 친구인 경우
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date cre_lt = transFormat.parse(created_at_lt);
+		Date cre_gt = transFormat.parse(created_at_gt);
+		return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
 	}
-
+	
+	
+	@RequestMapping(value = "/friend")
+	public List<UserEntity> getFriend(Principal principal) {
+		String username = principal.getName();
+		UserEntity userEntity = userService.getByUsername(username);
+		return userEntity.getFriend();
+	}
 }
