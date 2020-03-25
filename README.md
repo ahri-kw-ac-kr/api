@@ -30,6 +30,9 @@ WorkingDirectory=/etc/ahri
 WantedBy=multi-user.target
 ```
 
+이후 `service ahri [start|stop|restart]`로 서비스 [시작|정지|재시작] 가능
+
+
 `/etc/ahri/application.properties` 작성
 
 ```
