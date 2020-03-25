@@ -21,6 +21,8 @@ import local.project.api.model.RawdataEntity;
 import local.project.api.service.RawdataService;
 import local.project.api.model.UserEntity;
 import local.project.api.service.UserService;
+import local.project.api.model.GPSEntity;
+import local.project.api.service.GPSService;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -31,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	private RawdataService rawdataService;
+
+	@Autowired
+	private GPSService gpsService;
 	
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -93,7 +98,23 @@ public class UserController {
 					return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
 				}	
 	
-	
+	@RequestMapping(value = "/{id}/gps")
+	public Iterable<GPSEntity> getAll(
+		@PathVariable Long id,
+		@RequestParam(value = "page", defaultValue = "0") String page, Principal principal)
+				throws ParseException {
+					String username = principal.getName();
+					UserEntity userEntity = userService.getByUsername(username);
+					int p = Integer.parseInt(page);
+					if (userService.isFriend(userEntity.getId(), id) == false) { 
+						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
+					}
+					
+					return gpsService.getAllByUserId(id, p);
+				}
+
+
+
 	@RequestMapping(value = "/friend")
 	public List<UserEntity> getFriend(Principal principal) {
 		String username = principal.getName();
