@@ -36,7 +36,7 @@ jobs:
         path: build/libs/api-0.0.1-SNAPSHOT.jar
     
     - name: Copy via ssh
-      uses: garygrossgarten/github-action-scp@v0.5.3
+      uses: garygrossgarten/github-action-scp@release
       with:
         # Path to the local folder you want to copy.
         local: build/libs/api-0.0.1-SNAPSHOT.jar
