@@ -35,3 +35,17 @@ jobs:
         name: api.jar
         path: build/libs/api-0.0.1-SNAPSHOT.jar
     
+    - name: Copy via ssh
+      uses: garygrossgarten/github-action-scp@v0.5.3
+      with:
+        # Path to the local folder you want to copy.
+        local: build/libs/api-0.0.1-SNAPSHOT.jar
+        # Path on the remote server to copy to.
+        remote: ${{ secrets.REMOTE }}
+        # Number of concurrent file transfers.
+        host: ${{ secrets.HOST }}
+        # Username for authentication.
+        username: ${{ secrets.USERNAME }}
+        # File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
+        privateKey: ${{ secrets.PEM }}
+    
