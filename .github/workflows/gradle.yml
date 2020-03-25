@@ -50,4 +50,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         # File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
         privateKey: ${{ secrets.PEM }}
-    
+    - name: restart server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PEM }}
+        script: sudo service ahri restart
