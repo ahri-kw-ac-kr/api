@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import local.project.api.model.RawdataEntity;
-import local.project.api.service.RawdataService;
 import local.project.api.model.UserEntity;
+import local.project.api.service.RawdataService;
 import local.project.api.service.UserService;
 import local.project.api.model.GPSEntity;
 import local.project.api.service.GPSService;
@@ -84,19 +84,27 @@ public class UserController {
 	@RequestMapping(value = "/{id}/rawdata")
 	public Iterable<RawdataEntity> getRawdata(
 		@PathVariable Long id,
-		@RequestParam(value = "page", defaultValue = "0") String page, String created_at_lt, String created_at_gt, Principal principal)
-				throws ParseException {
-					String username = principal.getName();
-					UserEntity userEntity = userService.getByUsername(username);
-					int p = Integer.parseInt(page);
-					if (userService.isFriend(userEntity.getId(), id) == false) { 
-						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
-					}
-					SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					Date cre_lt = transFormat.parse(created_at_lt);
-					Date cre_gt = transFormat.parse(created_at_gt);
-					return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
-				}	
+		@RequestParam(defaultValue = "0") String page,
+		@RequestParam(defaultValue = "0") String created_at_lt,
+		@RequestParam(defaultValue = "0") String created_at_gt,
+		Principal principal )
+		throws ParseException {
+
+		String username = principal.getName();
+		UserEntity userEntity = userService.getByUsername(username);
+		int p = Integer.parseInt(page);	
+
+		// 요청한 유저가 {id}와 친구가 아닌 경우
+		if (userService.isFriend(userEntity.getId(), id) == false) { 
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
+		}
+
+		// 요청한 유저가 {id}와 친구인 경우
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date cre_lt = transFormat.parse(created_at_lt);
+		Date cre_gt = transFormat.parse(created_at_gt);
+		return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
+	}
 	
 	@RequestMapping(value = "/{id}/gps")
 	public Iterable<GPSEntity> getAll(

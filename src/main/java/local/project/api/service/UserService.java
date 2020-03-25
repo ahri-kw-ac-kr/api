@@ -26,7 +26,7 @@ public class UserService extends DefaultService<UserEntity> {
 		UserEntity requestUser = optionalRequestUser.get();
 		Stream<UserEntity> filteredFriend = requestUser.getFriend().stream().filter(e -> e.getId() == id2);
 		if (filteredFriend.count() == 0) {
-		  // Ä£±¸¾Æ´Ô
+		  // Ä£ï¿½ï¿½ï¿½Æ´ï¿½
 		  return false;
 		}
 		return true;
