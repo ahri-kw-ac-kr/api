@@ -22,6 +22,8 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Set application.properties
+      run: echo $${ secrets.PROPERTIES }} > src/main/resources/application.properties
     - name: Cache
       uses: actions/cache@v1.1.2
       with:
