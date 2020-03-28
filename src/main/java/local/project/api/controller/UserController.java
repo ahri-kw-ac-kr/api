@@ -96,7 +96,7 @@ public class UserController {
 
 		// �슂泥��븳 �쑀��媛� {id}�� 移쒓뎄媛� �븘�땶 寃쎌슦
 		if (userService.isFriend(userEntity.getId(), id) == false) { 
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "No acceptable");
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
 		}
 
 		// �슂泥��븳 �쑀��媛� {id}�� 移쒓뎄�씤 寃쎌슦
@@ -115,7 +115,7 @@ public class UserController {
 					UserEntity userEntity = userService.getByUsername(username);
 					int p = Integer.parseInt(page);
 					if (userService.isFriend(userEntity.getId(), id) == false) { 
-						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
+						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
 					}
 					
 					return gpsService.getAllByUserId(id, p);
