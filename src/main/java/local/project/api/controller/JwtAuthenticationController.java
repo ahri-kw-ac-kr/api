@@ -49,10 +49,11 @@ public class JwtAuthenticationController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserEntity user) throws Exception {
-		if (userDetailsService.loadUserByUsername(user.getUsername()) != null) {
+		if (userDetailsService.AvailableUsername(user.getUsername()) == false) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Already exist");
 		}
 		return ResponseEntity.ok(userDetailsService.save(user));
+		
 	}
 	
 	private void authenticate(String username, String password) throws Exception {
