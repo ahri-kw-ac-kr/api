@@ -50,7 +50,7 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserEntity user) throws Exception {
 		if (userDetailsService.loadUserByUsername(user.getUsername()) != null) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Already exist");
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "Already exist");
 		}
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
