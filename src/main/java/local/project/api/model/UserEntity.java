@@ -9,16 +9,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(generator = IntSequenceGenerator.class)
 public class UserEntity extends DefaultEntity {
-
+	
 	@Column(unique = true, nullable = false)
 	private String username;
 
@@ -41,7 +39,8 @@ public class UserEntity extends DefaultEntity {
 
 	@Column
 	private String phone;
-
+	
+	//@JsonBackReference
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<UserEntity> friend;
 
@@ -147,6 +146,7 @@ public class UserEntity extends DefaultEntity {
 	/**
 	 * @return the friend
 	 */
+	@JsonIgnoreProperties({"friend"})
 	public List<UserEntity> getFriend() {
 		return friend;
 	}
