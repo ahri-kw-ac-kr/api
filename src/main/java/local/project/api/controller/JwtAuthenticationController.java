@@ -7,6 +7,7 @@ import local.project.api.model.UserEntity;
 import local.project.api.service.JwtUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @CrossOrigin
@@ -32,7 +34,7 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@RequestMapping(value = "/authenticate", method = RequestMethod.GET)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -47,22 +49,11 @@ public class JwtAuthenticationController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserEntity user) throws Exception {
+		if (userDetailsService.loadUserByUsername(user.getUsername()) != null) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Already exist");
+		}
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
-
-	/// POST http://localhost:8080/register
-	/*{
-		"loginid":"aaa",
-		"username" : "bbb",
-		"password" : "ccc"
-	}
-
-	/// POST http://localhost:8080/authenticate
-	{
-			"loginid":"aaa",
-			"username" : "bbb",
-			"password" : "ccc"
-	}*/
 	
 	private void authenticate(String username, String password) throws Exception {
 		try {

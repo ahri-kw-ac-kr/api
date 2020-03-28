@@ -38,7 +38,7 @@ public class UserController {
 	private GPSService gpsService;
 	
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<UserEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page, Principal principal) {
 		int p = Integer.parseInt(page);
 		System.out.println(principal.getName());
@@ -94,12 +94,12 @@ public class UserController {
 		UserEntity userEntity = userService.getByUsername(username);
 		int p = Integer.parseInt(page);	
 
-		// 요청한 유저가 {id}와 친구가 아닌 경우
+		// �슂泥��븳 �쑀��媛� {id}�� 移쒓뎄媛� �븘�땶 寃쎌슦
 		if (userService.isFriend(userEntity.getId(), id) == false) { 
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no accpetable");
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "No acceptable");
 		}
 
-		// 요청한 유저가 {id}와 친구인 경우
+		// �슂泥��븳 �쑀��媛� {id}�� 移쒓뎄�씤 寃쎌슦
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date cre_lt = transFormat.parse(created_at_lt);
 		Date cre_gt = transFormat.parse(created_at_gt);
@@ -120,13 +120,4 @@ public class UserController {
 					
 					return gpsService.getAllByUserId(id, p);
 				}
-
-
-
-	@RequestMapping(value = "/friend")
-	public List<UserEntity> getFriend(Principal principal) {
-		String username = principal.getName();
-		UserEntity userEntity = userService.getByUsername(username);
-		return userEntity.getFriend();
-	}
 }
