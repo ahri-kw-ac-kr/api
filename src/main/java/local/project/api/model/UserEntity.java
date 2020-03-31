@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"updatedAt", "createdAt", "del"})
 public class UserEntity extends DefaultEntity {
 	
 	@Column(unique = true, nullable = false)
@@ -40,7 +41,6 @@ public class UserEntity extends DefaultEntity {
 	@Column
 	private String phone;
 	
-	//@JsonBackReference
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<UserEntity> friend;
 
@@ -146,7 +146,7 @@ public class UserEntity extends DefaultEntity {
 	/**
 	 * @return the friend
 	 */
-	@JsonIgnoreProperties({"friend"})
+	@JsonIgnoreProperties({"updatedAt", "createdAt", "friend", "del"})
 	public List<UserEntity> getFriend() {
 		return friend;
 	}

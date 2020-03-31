@@ -6,26 +6,37 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "rawdata")
+@JsonIgnoreProperties({"createdAt", "del"})
 public class RawdataEntity extends DefaultEntity {
 
 	@Column
 	private int startTick;
+
 	@Column
 	private int endTick;
+
 	@Column
 	private int totalLux;
+
 	@Column
 	private short steps;
+
 	@Column
 	private short avgLux;
+
 	@Column
 	private short avgTemp;
+
 	@Column
 	private short vectorX;
+
 	@Column
 	private short vectorY;
+
 	@Column
 	private short vectorZ;
 

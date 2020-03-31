@@ -6,15 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "gps")
+@JsonIgnoreProperties({"createdAt", "del"})
 public class GPSEntity extends DefaultEntity {
 
 	@Column
 	private String lat;
+
 	@Column
 	private String lon;
-
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserEntity user;
