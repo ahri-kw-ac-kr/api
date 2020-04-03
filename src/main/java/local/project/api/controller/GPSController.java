@@ -28,7 +28,7 @@ public class GPSController {
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<GPSEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page) {
 		int p = Integer.parseInt(page);
-		return gpsService.getAll(p);
+		return gpsService.getAll(p).getContent();
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
