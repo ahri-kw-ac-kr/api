@@ -31,7 +31,7 @@ public class GPSController {
 		return gpsService.getAll(p);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.POST)
 	public GPSEntity insert(@RequestBody GPSEntity entity) {
 		System.out.println(entity.getLat()+","+entity.getLon());
 		return gpsService.insert(entity);

@@ -45,7 +45,7 @@ public class UserController {
 		return userService.getAll(p);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.POST)
 	public UserEntity insert(@RequestBody UserEntity entity) {
 		System.out.println(entity.getId());
 		return userService.insert(entity);

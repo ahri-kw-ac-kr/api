@@ -31,7 +31,7 @@ public class RawdataController {
 		return rawdataService.getAll(p);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.POST)
 	public RawdataEntity insert(@RequestBody RawdataEntity entity) {
 		System.out.println(entity.getUser());
 		return rawdataService.insert(entity);
