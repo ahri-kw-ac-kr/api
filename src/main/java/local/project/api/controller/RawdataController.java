@@ -50,7 +50,7 @@ public class RawdataController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
 	public RawdataEntity patch(@PathVariable Long id, RawdataEntity rawdataEntity) {
-		return rawdataService.update(rawdataEntity);
+		return rawdataService.update(rawdataEntity, id);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH)

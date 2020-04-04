@@ -50,7 +50,7 @@ public class GPSController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
 	public GPSEntity patch(@PathVariable Long id, GPSEntity gpsEntity) {
-		return gpsService.update(gpsEntity);
+		return gpsService.update(gpsEntity, id);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH)

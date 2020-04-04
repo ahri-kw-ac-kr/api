@@ -50,7 +50,7 @@ public class DocumentController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
 	public DocumentEntity patch(@PathVariable Long id, DocumentEntity documentEntity) {
-		return documentService.update(documentEntity);
+		return documentService.update(documentEntity, id);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH)

@@ -26,6 +26,7 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.13'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation 'org.apache.commons:commons-lang3:3.6'
 	compileOnly "org.springframework.boot:spring-boot-starter-tomcat"
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

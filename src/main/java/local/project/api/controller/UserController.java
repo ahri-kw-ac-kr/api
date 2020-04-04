@@ -63,8 +63,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-	public UserEntity patch(@PathVariable Long id, UserEntity userEntity) {
-		return userService.update(userEntity);
+	public UserEntity patch(@PathVariable Long id, @RequestBody UserEntity userEntity) {
+		return userService.update(userEntity, id);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH)
