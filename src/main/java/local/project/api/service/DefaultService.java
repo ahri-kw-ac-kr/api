@@ -3,6 +3,8 @@ package local.project.api.service;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,26 +32,20 @@ public class DefaultService<T extends DefaultEntity> {
 		return repository.save(entity);
 	}
 
-	public T update(T entity, Long id) {
-		Class clazz = entity.getClass();
-		Optional<T> origin = repository.findById(id);
-
-		if (!origin.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
-		}
-
-		T originEntity = origin.get();
+	// left = right, right의 field중 null이 아닌 값을 left에 덮어씌움
+	private T merge(T left, T right) {
+		Class clazz = left.getClass();
 
 		for (final Field field : clazz.getDeclaredFields()) {
 			try {
 				String getterString = String.format("get%s", StringUtils.capitalize(field.getName()));
 				Method getter = clazz.getMethod(getterString);
-				Object value = getter.invoke(entity);
+				Object value = getter.invoke(right);
 
 				if (value != null) {
 					String setterString = String.format("set%s", StringUtils.capitalize(field.getName()));
 					Method setter = clazz.getMethod(setterString, field.getType());
-					setter.invoke(originEntity, value);
+					setter.invoke(left, value);
 				}
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -65,11 +61,32 @@ public class DefaultService<T extends DefaultEntity> {
 			}
 		}
 
+		return left;
+	}
+
+	public T update(T entity, Long id) {
+		Optional<T> origin = repository.findById(id);
+		if (!origin.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+		}
+		T originEntity = origin.get();
+
+		this.merge(originEntity, entity);
 		return repository.save(originEntity);
 	}
 
 	public Iterable<T> dumpUpdate(Iterable<T> entity) {
-		return repository.saveAll(entity);
+		List<T> origins = new LinkedList<T>();
+		for (final T element : entity) {
+			Optional<T> origin = repository.findById(element.getId());
+			if (!origin.isPresent()) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+			}
+			T originEntity = origin.get();
+			this.merge(originEntity, element);
+			origins.add(originEntity);
+		}
+		return repository.saveAll(origins);
 	}
 
 	public Boolean delete(Long id) {
