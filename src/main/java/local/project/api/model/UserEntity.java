@@ -33,7 +33,7 @@ public class UserEntity extends DefaultEntity {
 	private transient String newPassword;
 
 	@Column(nullable = true)
-	private char sex;
+	private String sex;
 
 	@Column
 	private String birth;
@@ -104,14 +104,14 @@ public class UserEntity extends DefaultEntity {
 	/**
 	 * @return the sex
 	 */
-	public char getSex() {
+	public String getSex() {
 		return sex;
 	}
 
 	/**
 	 * @param sex the sex to set
 	 */
-	public void setSex(char sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 

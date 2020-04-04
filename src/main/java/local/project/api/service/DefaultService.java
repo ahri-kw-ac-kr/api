@@ -33,7 +33,7 @@ public class DefaultService<T extends DefaultEntity> {
 	}
 
 	// left = right, right의 field중 null이 아닌 값을 left에 덮어씌움
-	private T merge(T left, T right) {
+	protected T merge(T left, T right) {
 		Class clazz = left.getClass();
 
 		for (final Field field : clazz.getDeclaredFields()) {

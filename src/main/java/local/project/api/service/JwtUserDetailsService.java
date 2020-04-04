@@ -32,7 +32,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public boolean AvailableUsername(String username) {
+	public boolean isAvailableUsername(String username) {
 		UserEntity user = userRepository.findByUsername(username);
 		if (user==null) { return true;}
 		else { return false; }

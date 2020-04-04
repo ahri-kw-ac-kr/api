@@ -63,7 +63,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-	public UserEntity patch(@PathVariable Long id, @RequestBody UserEntity userEntity) {
+	public UserEntity patch(@PathVariable Long id, @RequestBody UserEntity userEntity, Principal principal) {
+		String username = principal.getName();
+		UserEntity nowUser = userService.getByUsername(username);
+		if (nowUser.getId()!= id) { //본인이 아닌경우
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
+		}
 		return userService.update(userEntity, id);
 	}
 
@@ -94,12 +99,12 @@ public class UserController {
 		UserEntity userEntity = userService.getByUsername(username);
 		int p = Integer.parseInt(page);	
 
-		// �슂泥��븳 �쑀��媛� {id}�� 移쒓뎄媛� �븘�땶 寃쎌슦
+		// 친구 아닐 경우
 		if (userService.isFriend(userEntity.getId(), id) == false) { 
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
 		}
 
-		// �슂泥��븳 �쑀��媛� {id}�� 移쒓뎄�씤 寃쎌슦
+		// 친구 맞음
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date cre_lt = transFormat.parse(created_at_lt);
 		Date cre_gt = transFormat.parse(created_at_gt);
