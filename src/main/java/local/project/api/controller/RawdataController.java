@@ -28,7 +28,7 @@ public class RawdataController {
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<RawdataEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page) {
 		int p = Integer.parseInt(page);
-		return rawdataService.getAll(p).getContent();
+		return rawdataService.getAll(p);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

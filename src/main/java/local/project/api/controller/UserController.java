@@ -42,7 +42,7 @@ public class UserController {
 	public Iterable<UserEntity> getAll(@RequestParam(value = "page", defaultValue = "0") String page, Principal principal) {
 		int p = Integer.parseInt(page);
 		System.out.println(principal.getName());
-		return userService.getAll(p).getContent();
+		return userService.getAll(p);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
