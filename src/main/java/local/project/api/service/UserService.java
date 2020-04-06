@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,6 +26,9 @@ public class UserService extends DefaultService<UserEntity> {
     
     @Autowired
 	private PasswordEncoder bcryptEncoder;
+    
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     public Page<UserEntity> getAll(int page) {
         return userRepository.findAllByIsDelFalse(PageRequest.of(page, 20));
@@ -56,7 +63,16 @@ public class UserService extends DefaultService<UserEntity> {
 		}
 
 		this.merge(originEntity, entity);
-		return repository.save(originEntity);
-    	
+		return repository.save(originEntity);	
+    }
+    
+    @Async
+    public void sendMail(String userEmail, String number) {
+    	SimpleMailMessage simpleMessage = new SimpleMailMessage();
+    	simpleMessage.setFrom("ahrinoahri"); // NAVER, DAUM, NATE일 경우 넣어줘야 함
+    	simpleMessage.setTo(userEmail);
+    	simpleMessage.setSubject("AlchiDoc 비밀번호 찾기 인증번호");
+    	simpleMessage.setText("인증번호: "+number);
+    	javaMailSender.send(simpleMessage);
     }
 }

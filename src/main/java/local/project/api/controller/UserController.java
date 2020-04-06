@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -125,4 +128,40 @@ public class UserController {
 					
 					return gpsService.getAllByUserId(id, p);
 				}
+	
+	@RequestMapping(value = "/forget", method = RequestMethod.PATCH)
+	public void sendMail(@RequestParam String username) throws ParseException{
+		UserEntity userEntity = userService.getByUsername(username);
+		if(userEntity == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Username is not found");
+		}
+		
+		Random rand = new Random();
+		int randNumber = rand.nextInt(900000)+100000;
+		userEntity.setNumber(String.valueOf(randNumber));
+		userService.update(userEntity, userEntity.getId());
+		
+		Timer timer = new Timer();
+		TimerTask timeTask = new TimerTask() {
+			@Override public void run(){ 
+				userEntity.setNumber("000000");
+				userService.update(userEntity, userEntity.getId()); } };
+			
+		userService.sendMail(username, String.valueOf(randNumber));
+		timer.schedule(timeTask, 300000); //5분 시간제한
+	}
+	
+	@RequestMapping(value = "/initpassword", method = RequestMethod.PATCH)
+	public UserEntity initPassword(
+			@RequestParam String username,
+			@RequestParam String number,
+			@RequestParam String password) throws ParseException{
+			UserEntity userEntity = userService.getByUsername(username);
+			if(userEntity.getNumber().equals(number) != true) {
+				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Time out");
+			}
+			UserEntity changeUser = null;
+			changeUser.setNewPassword(password);
+			return userService.update(changeUser, userEntity.getId());
+	}
 }
