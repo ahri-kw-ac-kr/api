@@ -148,7 +148,7 @@ public class UserController {
 				userService.update(userEntity, userEntity.getId()); } };
 			
 		userService.sendMail(username, String.valueOf(randNumber));
-		timer.schedule(timeTask, 300000); //5분 시간제한
+		timer.schedule(timeTask, 10000); //5분 시간제한
 		return username;
 	}
 	
@@ -158,7 +158,7 @@ public class UserController {
 			@RequestParam String number,
 			@RequestParam String password) throws ParseException{
 			UserEntity userEntity = userService.getByUsername(username);
-			if(userEntity.getNumber().equals(number) != true) {
+			if(userEntity.getNumber().equals(number) != true || number.equals("000000")) {
 				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Time out");
 			}
 			UserEntity changeUser = null;
