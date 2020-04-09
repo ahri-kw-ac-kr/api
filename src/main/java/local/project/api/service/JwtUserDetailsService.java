@@ -32,6 +32,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
+	public UserEntity getLonginUser(String username) {
+		UserEntity user = userRepository.findByUsername(username);
+		return user;
+	}
+	
 	public boolean isAvailableUsername(String username) {
 		UserEntity user = userRepository.findByUsername(username);
 		if (user==null) { return true;}
