@@ -148,7 +148,7 @@ public class UserController {
 				userService.update(userEntity, userEntity.getId()); } };
 			
 		userService.sendMail(username, String.valueOf(randNumber));
-		timer.schedule(timeTask, 10000); //5분 시간제한
+		timer.schedule(timeTask, 300000); //5분 시간제한
 		return username;
 	}
 	
