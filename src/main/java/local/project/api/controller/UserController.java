@@ -166,18 +166,26 @@ public class UserController {
 			return userService.update(changeUser, userEntity.getId());
 	}
 	
+	//친구 추가 : 내 정보를 보여줄 사람 추가
 	@RequestMapping(value = "/{id}/plusfriend", method = RequestMethod.POST)
-	public UserEntity plusFriend(
-		@PathVariable Long id, @RequestParam String frname, Principal principal)
+	public Optional<UserEntity> plusFriend(
+		@PathVariable Long id, @RequestParam String frname)
 				throws ParseException {
 					UserEntity friend = userService.getByUsername(frname);
 					if (friend == null) { 
 						throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username is not found");
 					}
-					String username = principal.getName();
-					UserEntity user = userService.getByUsername(username);
-					userService.plusFriend(friend.getId(),user.getId());
+					userService.plusFriend(friend.getId(),id);
+					Optional<UserEntity> user = userService.get(id);
 					return user;
 	}
 	
+	// 내 정보를 보고있는 사람목록 불러오기
+	@RequestMapping(value = "/{id}/mydoctor", method = RequestMethod.GET)
+	public Iterable<UserEntity> myDoctor(
+		@PathVariable Long id, @RequestParam (value = "page", defaultValue = "0") String page) {
+					int p = Integer.parseInt(page);	
+					Optional<UserEntity> user = userService.get(id);
+					return userService.myDoctor(id,p);
+	}
 }

@@ -21,4 +21,7 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 	@Transactional
 	@Query(value="insert into user_friend values(:frId,:userId)", nativeQuery=true)
 	void plusFriend(@Param("frId")long frId, @Param("userId")long userId);
+	
+	@Query(value="select * from user, user_friend where user_friend.friend_id=:userId and user.id=user_friend.user_entity_id", nativeQuery=true)
+	Page<UserEntity> myDoctor(@Param("userId")long id, Pageable pageable);
 }

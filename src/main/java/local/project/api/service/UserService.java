@@ -70,6 +70,10 @@ public class UserService extends DefaultService<UserEntity> {
     	userRepository.plusFriend(frId,userId);
     }
     
+    public Page<UserEntity> myDoctor(long id, int page){
+    	return userRepository.myDoctor(id, PageRequest.of(page, 200));
+    }
+    
     @Async
     public void sendMail(String userEmail, String number) {
     	SimpleMailMessage simpleMessage = new SimpleMailMessage();
