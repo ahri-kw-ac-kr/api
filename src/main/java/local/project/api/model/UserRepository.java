@@ -24,4 +24,9 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 	
 	@Query(value="select * from user, user_friend where user_friend.friend_id=:userId and user.id=user_friend.user_entity_id", nativeQuery=true)
 	Page<UserEntity> myDoctor(@Param("userId")long id, Pageable pageable);
+	
+	@Modifying
+	@Transactional
+	@Query(value="delete from user_friend where user_entity_id=:proId and friend_id=:patId", nativeQuery=true)
+	void delFriend(@Param("proId")long protectId, @Param("patId")long patientId);
 }

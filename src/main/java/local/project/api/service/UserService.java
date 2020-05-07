@@ -74,6 +74,10 @@ public class UserService extends DefaultService<UserEntity> {
     	return userRepository.myDoctor(id, PageRequest.of(page, 200));
     }
     
+    public void delFriend(long protectId, long patientId) {
+    	userRepository.delFriend(protectId, patientId);
+    }
+    
     @Async
     public void sendMail(String userEmail, String number) {
     	SimpleMailMessage simpleMessage = new SimpleMailMessage();

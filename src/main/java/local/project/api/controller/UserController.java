@@ -188,4 +188,11 @@ public class UserController {
 					Optional<UserEntity> user = userService.get(id);
 					return userService.myDoctor(id,p);
 	}
+	
+	//친구 지우기
+	@RequestMapping(value = "/delfriend", method = RequestMethod.DELETE)
+	public String delFriend(@RequestParam long protectId, @RequestParam long patientId) {
+		userService.delFriend(protectId, patientId);
+		return "protectId: "+ protectId + " / patientId: "+ patientId;
+	}
 }
