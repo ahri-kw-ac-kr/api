@@ -127,7 +127,7 @@ public class UserController {
 					}
 					
 					return gpsService.getAllByUserId(id, p);
-				}
+	}
 	
 	@RequestMapping(value = "/forget", method = RequestMethod.PATCH)
 	public String sendMail(@RequestParam String username) throws ParseException{
@@ -165,4 +165,19 @@ public class UserController {
 			changeUser.setNewPassword(password);
 			return userService.update(changeUser, userEntity.getId());
 	}
+	
+	@RequestMapping(value = "/{id}/plusfriend", method = RequestMethod.POST)
+	public UserEntity plusFriend(
+		@PathVariable Long id, @RequestParam String frname, Principal principal)
+				throws ParseException {
+					UserEntity friend = userService.getByUsername(frname);
+					if (friend == null) { 
+						throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username is not found");
+					}
+					String username = principal.getName();
+					UserEntity user = userService.getByUsername(username);
+					userService.plusFriend(friend.getId(),user.getId());
+					return user;
+	}
+	
 }

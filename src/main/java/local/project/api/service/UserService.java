@@ -66,6 +66,10 @@ public class UserService extends DefaultService<UserEntity> {
 		return repository.save(originEntity);	
     }
     
+    public void plusFriend(long frId, long userId) {
+    	userRepository.plusFriend(frId,userId);
+    }
+    
     @Async
     public void sendMail(String userEmail, String number) {
     	SimpleMailMessage simpleMessage = new SimpleMailMessage();
