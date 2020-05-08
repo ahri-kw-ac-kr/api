@@ -3,14 +3,17 @@ package local.project.api.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "rawdata")
-@JsonIgnoreProperties({"createdAt", "del"})
+@Table(name = "rawdata",uniqueConstraints={@UniqueConstraint(columnNames={"startTick","user_id"})})
+@JsonIgnoreProperties({"updatedAt", "createdAt", "del"})
 public class RawdataEntity extends DefaultEntity {
 
 	@Column
@@ -106,8 +109,8 @@ public class RawdataEntity extends DefaultEntity {
 		this.vectorZ = vectorZ;
 	}
 
-	public UserEntity getUser() {
-		return user;
+	public long getUser() {
+		return user.getId();
 	}
 	public void setUser(UserEntity user) {
 		this.user = user;
