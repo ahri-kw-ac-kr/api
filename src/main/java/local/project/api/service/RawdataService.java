@@ -25,6 +25,6 @@ public class RawdataService extends DefaultService<RawdataEntity> {
 	}
     
     public Page<RawdataEntity> getPeroidByUserId(Long userId, int page, int created_at_lt, int created_at_gt) {
-        return rawdataRepository.findPeriodByUserId(userId, PageRequest.of(page, 200), created_at_lt, created_at_gt);
+        return rawdataRepository.findPeriodByUserId(userId, PageRequest.of(page, 4500), created_at_lt, created_at_gt);
 	}
 }
