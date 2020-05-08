@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -45,6 +47,7 @@ public class UserEntity extends DefaultEntity {
 	private String number;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"user_entity_id","friend_id"})})
 	private List<UserEntity> friend;
 
 	/**
