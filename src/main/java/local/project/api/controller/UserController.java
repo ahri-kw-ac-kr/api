@@ -109,8 +109,10 @@ public class UserController {
 
 		// 친구 맞음
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date cre_lt = transFormat.parse(created_at_lt);
-		Date cre_gt = transFormat.parse(created_at_gt);
+		Date cre_lt_date = transFormat.parse(created_at_lt);
+		Date cre_gt_date = transFormat.parse(created_at_gt);
+		int cre_lt = (int) cre_lt_date.getTime();
+		int cre_gt = (int) cre_gt_date.getTime();
 		return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
 	}
 	

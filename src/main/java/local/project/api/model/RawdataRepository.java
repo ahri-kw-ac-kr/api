@@ -15,6 +15,6 @@ public interface RawdataRepository extends PagingAndSortingRepository<RawdataEnt
     Page<RawdataEntity> findAllByUserId(Long userId, Pageable pageable);
     
     @Query(value="select * from (select * from rawdata where user_id = :userId) R "
-    		+ "where R.created_at between :cre_lt and :cre_gt", nativeQuery=true)
-    Page<RawdataEntity> findPeriodByUserId(@Param("userId")Long userId, Pageable pageable, @Param("cre_lt")Date created_at_lt, @Param("cre_gt")Date created_at_gt);
+    		+ "where R.start_tick between :cre_lt and :cre_gt", nativeQuery=true)
+    Page<RawdataEntity> findPeriodByUserId(@Param("userId")Long userId, Pageable pageable, @Param("cre_lt")int created_at_lt, @Param("cre_gt")int created_at_gt);
 } 
