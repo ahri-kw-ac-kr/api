@@ -3,6 +3,7 @@ package local.project.api.controller;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -103,32 +104,38 @@ public class UserController {
 		int p = Integer.parseInt(page);	
 
 		// 친구 아닐 경우
-		if (userService.isFriend(userEntity.getId(), id) == false) { 
+		if (userService.isFriend(userEntity.getId(), id) == false && userEntity.getId() != id) { 
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
 		}
 
 		// 친구 맞음
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd");
 		Date cre_lt_date = transFormat.parse(created_at_lt);
 		Date cre_gt_date = transFormat.parse(created_at_gt);
-		int cre_lt = (int) cre_lt_date.getTime();
-		int cre_gt = (int) cre_gt_date.getTime();
+		System.out.println(created_at_lt+" ㄱㄴㄷㄹ "+created_at_gt);
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		cal1.setTime(cre_lt_date);
+		cal2.setTime(cre_gt_date);
+		int cre_lt = (int) (cal1.getTimeInMillis()/1000);
+		int cre_gt = (int) (cal2.getTimeInMillis()/1000);
+		System.out.println(Integer.toString(cre_lt)+" 가나다라 "+Integer.toString(cre_gt));
 		return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
 	}
 	
 	@RequestMapping(value = "/{id}/gps")
-	public Iterable<GPSEntity> getAll(
+	public Iterable<GPSEntity> getGPS(
 		@PathVariable Long id,
 		@RequestParam(value = "page", defaultValue = "0") String page, Principal principal)
 				throws ParseException {
 					String username = principal.getName();
 					UserEntity userEntity = userService.getByUsername(username);
 					int p = Integer.parseInt(page);
-					if (userService.isFriend(userEntity.getId(), id) == false) { 
+					if (userService.isFriend(userEntity.getId(), id) == false && userEntity.getId() != id) { 
 						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
 					}
 					
-					return gpsService.getAllByUserId(id, p);
+					return gpsService.getTopByUserId(id, p);
 	}
 	
 	@RequestMapping(value = "/forget", method = RequestMethod.PATCH)

@@ -21,5 +21,9 @@ public class GPSService extends DefaultService<GPSEntity> {
     public Page<GPSEntity> getAllByUserId(Long userId, int page) {
         return gpsRepository.findAllByUserId(userId, PageRequest.of(page, 20));
 	}
+    
+    public Page<GPSEntity> getTopByUserId(Long userId, int page) {
+        return gpsRepository.findTopByUserId(userId, PageRequest.of(page, 20));
+	}
 	
 }
