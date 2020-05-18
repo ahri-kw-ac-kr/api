@@ -200,8 +200,10 @@ public class UserController {
 	
 	//친구 지우기
 	@RequestMapping(value = "/delfriend", method = RequestMethod.DELETE)
-	public String delFriend(@RequestParam long protectId, @RequestParam long patientId) {
+	public UserEntity delFriend(@RequestParam long protectId, @RequestParam long patientId, Principal principal) {
 		userService.delFriend(protectId, patientId);
-		return "protectId: "+ protectId + " / patientId: "+ patientId;
+		String userName = principal.getName();
+		UserEntity user = userService.getByUsername(userName);
+		return user;
 	}
 }
