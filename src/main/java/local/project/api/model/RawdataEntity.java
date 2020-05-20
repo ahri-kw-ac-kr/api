@@ -109,8 +109,8 @@ public class RawdataEntity extends DefaultEntity {
 		this.vectorZ = vectorZ;
 	}
 
-	public long getUser() {
-		return user.getId();
+	public UserEntity getUser() {
+		return user;
 	}
 	public void setUser(UserEntity user) {
 		this.user = user;

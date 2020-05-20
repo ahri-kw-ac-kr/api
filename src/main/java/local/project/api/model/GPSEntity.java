@@ -53,8 +53,8 @@ public class GPSEntity extends DefaultEntity {
 	/**
 	 * @return the user
 	 */
-	public long getUser() {
-		return user.getId();
+	public UserEntity getUser() {
+		return user;
 	}
 
 	/**
