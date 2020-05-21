@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import local.project.api.model.DefaultEntity;
+import local.project.api.model.UserEntity;
 
 public class DefaultService<T extends DefaultEntity> {
 
@@ -94,6 +95,9 @@ public class DefaultService<T extends DefaultEntity> {
 		if (!optionalEntity.isPresent()) { return false; }
 		T entity = optionalEntity.get();
 		entity.setDel(true);
+		if(entity instanceof UserEntity) {
+			((UserEntity) entity).setUsername("00000");
+		}
 		repository.save(entity);
 		return true;
 	}
