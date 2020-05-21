@@ -94,11 +94,12 @@ public class DefaultService<T extends DefaultEntity> {
 		Optional<T> optionalEntity = repository.findById(id);
 		if (!optionalEntity.isPresent()) { return false; }
 		T entity = optionalEntity.get();
-		entity.setDel(true);
+		/*entity.setDel(true);
 		if(entity instanceof UserEntity) {
 			((UserEntity) entity).setUsername("00000");
 		}
-		repository.save(entity);
+		repository.save(entity);*/
+		repository.delete(entity);
 		return true;
 	}
 }
