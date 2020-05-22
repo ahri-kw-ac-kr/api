@@ -168,7 +168,13 @@ public class UserEntity extends DefaultEntity {
 	 */
 	@JsonIgnoreProperties({"updatedAt", "createdAt", "friend"})
 	public List<UserEntity> getFriend() {
-		return friend;
+		List<UserEntity> myfriend=null;
+		for(int i=0; i<friend.size(); i++) {
+			if(friend.get(i).isDel()== false) {
+				myfriend.add(friend.get(i));
+			} 
+		}
+		return myfriend;
 	}
 
 	/**
