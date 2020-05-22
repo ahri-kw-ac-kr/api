@@ -166,7 +166,7 @@ public class UserEntity extends DefaultEntity {
 	/**
 	 * @return the friend
 	 */
-	@JsonIgnoreProperties({"updatedAt", "createdAt", "friend", "del"})
+	@JsonIgnoreProperties({"updatedAt", "createdAt", "friend"})
 	public List<UserEntity> getFriend() {
 		return friend;
 	}
