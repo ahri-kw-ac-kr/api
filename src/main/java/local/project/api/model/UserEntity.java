@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties({"updatedAt", "createdAt", "del", "number"})
+@JsonIgnoreProperties({"updatedAt", "createdAt", "number"})
 public class UserEntity extends DefaultEntity {
 	
 	@Column(unique = true, nullable = false)
