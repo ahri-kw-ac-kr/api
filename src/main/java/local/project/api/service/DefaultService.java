@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,12 +95,18 @@ public class DefaultService<T extends DefaultEntity> {
 		Optional<T> optionalEntity = repository.findById(id);
 		if (!optionalEntity.isPresent()) { return false; }
 		T entity = optionalEntity.get();
-		/*entity.setDel(true);
+		entity.setDel(true);
 		if(entity instanceof UserEntity) {
-			((UserEntity) entity).setUsername("00000");
+			String str="";
+			Random rand = new Random();
+			for(int i=0; i<10; i++) {
+				String randomStr = String.valueOf((char) ((int) (rand.nextInt(26)) + 97));
+				str = str+randomStr;
+			}
+			((UserEntity) entity).setUsername(((UserEntity) entity).getUsername()+str);
 		}
-		repository.save(entity);*/
-		repository.delete(entity);
+		repository.save(entity);
+		//repository.delete(entity);
 		return true;
 	}
 }
