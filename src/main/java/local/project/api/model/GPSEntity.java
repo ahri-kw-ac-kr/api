@@ -19,7 +19,7 @@ public class GPSEntity extends DefaultEntity {
 	@Column
 	private String lon;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserEntity user;
 
 	/**

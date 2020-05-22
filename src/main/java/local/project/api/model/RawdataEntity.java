@@ -43,7 +43,7 @@ public class RawdataEntity extends DefaultEntity {
 	@Column
 	private short vectorZ;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserEntity user;
 
 	public int getStartTick() { 
