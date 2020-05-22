@@ -13,13 +13,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"updatedAt", "del"})
 public class GPSEntity extends DefaultEntity {
 
-	@Column
+	@Columns
 	private String lat;
 
 	@Column
 	private String lon;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserEntity user;
 
 	/**
