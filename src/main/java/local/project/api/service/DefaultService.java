@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,12 +98,12 @@ public class DefaultService<T extends DefaultEntity> {
 		T entity = optionalEntity.get();
 		entity.setDel(true);
 		if(entity instanceof UserEntity) {
-			String str="";
-			Random rand = new Random();
+			/*Random rand = new Random();
 			for(int i=0; i<10; i++) {
 				String randomStr = String.valueOf((char) ((int) (rand.nextInt(26)) + 97));
 				str = str+randomStr;
-			}
+			}*/
+			String str = UUID.randomUUID().toString();
 			((UserEntity) entity).setUsername(((UserEntity) entity).getUsername()+str);
 		}
 		repository.save(entity);
