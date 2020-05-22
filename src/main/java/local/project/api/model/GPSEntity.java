@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"updatedAt", "del"})
 public class GPSEntity extends DefaultEntity {
 
-	@Columns
+	@Column
 	private String lat;
 
 	@Column
