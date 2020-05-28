@@ -170,9 +170,9 @@ public class UserController {
 			if(userEntity.getNumber().equals(number) != true || number.equals("000000")) {
 				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Time out");
 			}
-			UserEntity changeUser = null;
-			changeUser.setNewPassword(password);
-			return userService.update(changeUser, userEntity.getId());
+			//UserEntity changeUser = null;
+			userEntity.setNewPassword(password);
+			return userService.update(userEntity, userEntity.getId());
 	}
 	
 	//친구 추가 : 내 정보를 보여줄 사람 추가
