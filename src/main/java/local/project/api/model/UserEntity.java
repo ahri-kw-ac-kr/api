@@ -46,10 +46,27 @@ public class UserEntity extends DefaultEntity {
 	@Column
 	private String number;
 	
+	@Column
+	private String sleep;
+	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"user_entity_id","friend_id"})})
 	private List<UserEntity> friend;
 
+	/**
+	 * @return the sleep
+	 */
+	public String getSleep() {
+		return sleep;
+	}
+
+	/**
+	 * @param sleep the sleep to set
+	 */
+	public void setSleep(String sleep) {
+		this.sleep = sleep;
+	}
+	
 	/**
 	 * @return the number
 	 */
