@@ -139,7 +139,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/forget", method = RequestMethod.PATCH)
-	public String sendMail(@RequestParam String username) throws ParseException{
+	public UserEntity sendMail(@RequestParam String username) throws ParseException{
 		UserEntity userEntity = userService.getByUsername(username);
 		if(userEntity == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Username is not found");
@@ -158,7 +158,7 @@ public class UserController {
 			
 		userService.sendMail(username, String.valueOf(randNumber));
 		timer.schedule(timeTask, 300000); //5분 시간제한
-		return username;
+		return userEntity;
 	}
 	
 	@RequestMapping(value = "/initpassword", method = RequestMethod.PATCH)
