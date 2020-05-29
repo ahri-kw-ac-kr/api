@@ -58,7 +58,7 @@ public class UserService extends DefaultService<UserEntity> {
 		if(originEntity.getPassword() == entity.getNewPassword() && entity.getNewPassword()!=null) {
 			entity.setPassword(originEntity.getPassword());
 		}
-		else if(originEntity.getPassword() == entity.getPassword() && originEntity.getPassword() != entity.getNewPassword() && entity.getNewPassword()!=null) {
+		else if(originEntity.getPassword() != entity.getNewPassword() && entity.getNewPassword()!=null) {
 			entity.setPassword(bcryptEncoder.encode(entity.getNewPassword()));
 		}
 
