@@ -48,12 +48,21 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token,user));
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserEntity user) throws Exception {
 		if (userDetailsService.isAvailableUsername(user.getUsername()) == false) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Already exist");
 		}
 		return ResponseEntity.ok(userDetailsService.save(user));
+		
+	}*/
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public UserEntity saveUser(@RequestBody UserEntity user) throws Exception {
+		if (userDetailsService.isAvailableUsername(user.getUsername()) == false) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "Already exist");
+		}
+		userDetailsService.save(user);
+		return user;
 		
 	}
 	
