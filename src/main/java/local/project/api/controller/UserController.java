@@ -153,8 +153,9 @@ public class UserController {
 		Timer timer = new Timer();
 		TimerTask timeTask = new TimerTask() {
 			@Override public void run(){ 
-				userEntity.setNumber("000000");
-				userService.update(userEntity, userEntity.getId()); } };
+				UserEntity user = new UserEntity();
+				user.setNumber("000000");
+				userService.update(user, userEntity.getId()); } };
 			
 		userService.sendMail(username, String.valueOf(randNumber));
 		timer.schedule(timeTask, 300000); //5분 시간제한
