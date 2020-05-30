@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "sleep",uniqueConstraints={@UniqueConstraint(columnNames={"sleepTime","user_id"})})
+@Table(name = "sleep",uniqueConstraints={@UniqueConstraint(columnNames={"sleep_time","user_id"})})
 @JsonIgnoreProperties({"updatedAt", "del"})
 public class SleepEntity extends DefaultEntity {
 
