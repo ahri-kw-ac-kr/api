@@ -114,7 +114,7 @@ public class UserController {
 		}
 
 		// 친구 맞음
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 		Date cre_lt_date = transFormat.parse(created_at_lt);
 		Date cre_gt_date = transFormat.parse(created_at_gt);
 		System.out.println(created_at_lt+" ㄱㄴㄷㄹ "+created_at_gt);
