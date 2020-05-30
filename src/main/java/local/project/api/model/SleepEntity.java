@@ -20,16 +20,22 @@ public class SleepEntity extends DefaultEntity {
 	private String wakeTime;
 	
 	@Column
-	private String deep;
+	private int deep;
 	
 	@Column
-	private String light;
+	private int light;
 	
 	@Column
-	private String turn;
+	private int turn;
 	
 	@Column
-	private String wake;
+	private int wake;
+	
+	@Column
+	private int turnHour;
+	
+	@Column
+	private int total;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserEntity user;
@@ -65,57 +71,85 @@ public class SleepEntity extends DefaultEntity {
 	/**
 	 * @return the deep
 	 */
-	public String getDeep() {
+	public int getDeep() {
 		return deep;
 	}
 
 	/**
 	 * @param deep the deep to set
 	 */
-	public void setDeep(String deep) {
+	public void setDeep(int deep) {
 		this.deep = deep;
 	}
 	
 	/**
 	 * @return the light
 	 */
-	public String getLight() {
+	public int getLight() {
 		return light;
 	}
 
 	/**
 	 * @param light the light to set
 	 */
-	public void setLight(String light) {
+	public void setLight(int light) {
 		this.light = light;
 	}
 	
 	/**
 	 * @return the turn
 	 */
-	public String getTurn() {
+	public int getTurn() {
 		return turn;
 	}
 
 	/**
 	 * @param turn the turn to set
 	 */
-	public void setTurn(String turn) {
+	public void setTurn(int turn) {
 		this.turn = turn;
 	}
 	
 	/**
 	 * @return the wake
 	 */
-	public String getWake() {
+	public int getWake() {
 		return wake;
 	}
 
 	/**
 	 * @param wake the wake to set
 	 */
-	public void setWake(String wake) {
+	public void setWake(int wake) {
 		this.wake = wake;
+	}
+	
+	/**
+	 * @return the wake
+	 */
+	public int getTurnHour() {
+		return turnHour;
+	}
+
+	/**
+	 * @param wake the wake to set
+	 */
+	public void setTurnHour(int turnHour) {
+		this.turnHour = turnHour;
+	}
+	
+	/**
+	 * @return the wake
+	 */
+	public int getTotal() {
+		return total;
+	}
+
+	/**
+	 * @param wake the wake to set
+	 */
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	/**
