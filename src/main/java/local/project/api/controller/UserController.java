@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import local.project.api.model.RawdataEntity;
+import local.project.api.model.SleepEntity;
 import local.project.api.model.UserEntity;
 import local.project.api.service.RawdataService;
+import local.project.api.service.SleepService;
 import local.project.api.service.UserService;
 import local.project.api.model.GPSEntity;
 import local.project.api.service.GPSService;
@@ -40,6 +42,9 @@ public class UserController {
 
 	@Autowired
 	private GPSService gpsService;
+	
+	@Autowired
+	private SleepService sleepService;
 	
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -136,6 +141,21 @@ public class UserController {
 					}
 					
 					return gpsService.getTopByUserId(id, p);
+	}
+	
+	@RequestMapping(value = "/{id}/sleep")
+	public Iterable<SleepEntity> getSleep(
+		@PathVariable Long id,
+		@RequestParam(value = "page", defaultValue = "0") String page, Principal principal)
+				throws ParseException {
+					String username = principal.getName();
+					UserEntity userEntity = userService.getByUsername(username);
+					int p = Integer.parseInt(page);
+					if (userService.isFriend(userEntity.getId(), id) == false && userEntity.getId() != id) { 
+						throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
+					}
+					
+					return sleepService.getTopByUserId(id, p);
 	}
 	
 	@RequestMapping(value = "/forget", method = RequestMethod.PATCH)

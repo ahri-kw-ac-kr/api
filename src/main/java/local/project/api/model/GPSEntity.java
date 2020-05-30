@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "gps")
-@JsonIgnoreProperties({"updatedAt", "del"})
+@JsonIgnoreProperties({"updatedAt"})
 public class GPSEntity extends DefaultEntity {
 
 	@Column

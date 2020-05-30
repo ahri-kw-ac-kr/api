@@ -50,7 +50,7 @@ public class UserEntity extends DefaultEntity {
 	private String sleep;
 	
 	@Column
-	private String wake;
+	private String shareGPS;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(uniqueConstraints={@UniqueConstraint(columnNames={"user_entity_id","friend_id"})})
@@ -59,15 +59,15 @@ public class UserEntity extends DefaultEntity {
 	/**
 	 * @return the sleep
 	 */
-	public String getWake() {
-		return wake;
+	public String getShareGPS() {
+		return shareGPS;
 	}
 
 	/**
 	 * @param sleep the sleep to set
 	 */
-	public void setWake(String wake) {
-		this.wake = wake;
+	public void setShareGPS(String shareGPS) {
+		this.shareGPS = shareGPS;
 	}
 	
 	/**
