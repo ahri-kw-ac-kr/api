@@ -39,7 +39,7 @@ public class SleepEntity extends DefaultEntity {
 	private int total;
 	
 	@Column
-	private int[] level;
+	private String level;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserEntity user;
@@ -159,14 +159,14 @@ public class SleepEntity extends DefaultEntity {
 	/**
 	 * @return the level
 	 */
-	public int[] getLevel() {
+	public String getLevel() {
 		return level;
 	}
 
 	/**
 	 * @param total the total to set
 	 */
-	public void setLevel(int[] level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	
