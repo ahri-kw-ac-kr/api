@@ -37,6 +37,9 @@ public class SleepEntity extends DefaultEntity {
 	
 	@Column
 	private int total;
+	
+	@Column
+	private int[] level;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserEntity user;
@@ -126,31 +129,45 @@ public class SleepEntity extends DefaultEntity {
 	}
 	
 	/**
-	 * @return the wake
+	 * @return the turnHour
 	 */
 	public int getTurnHour() {
 		return turnHour;
 	}
 
 	/**
-	 * @param wake the wake to set
+	 * @param turnHour the turnHour to set
 	 */
 	public void setTurnHour(int turnHour) {
 		this.turnHour = turnHour;
 	}
 	
 	/**
-	 * @return the wake
+	 * @return the total
 	 */
 	public int getTotal() {
 		return total;
 	}
 
 	/**
-	 * @param wake the wake to set
+	 * @param total the total to set
 	 */
 	public void setTotal(int total) {
 		this.total = total;
+	}
+	
+	/**
+	 * @return the level
+	 */
+	public int[] getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param total the total to set
+	 */
+	public void setLevel(int[] level) {
+		this.level = level;
 	}
 	
 	/**
