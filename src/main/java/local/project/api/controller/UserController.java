@@ -128,6 +128,31 @@ public class UserController {
 		return rawdataService.getPeroidByUserId(id, p, cre_lt, cre_gt);
 	}
 	
+	@RequestMapping(value = "/{id}/sleepPeriod")
+	public Iterable<SleepEntity> getSleepdata(
+		@PathVariable Long id,
+		@RequestParam(defaultValue = "0") String page,
+		@RequestParam(defaultValue = "0") String created_at_lt,
+		@RequestParam(defaultValue = "0") String created_at_gt,
+		Principal principal )
+		throws ParseException {
+
+		String username = principal.getName();
+		UserEntity userEntity = userService.getByUsername(username);
+		int p = Integer.parseInt(page);	
+
+		// 친구 아닐 경우
+		if (userService.isFriend(userEntity.getId(), id) == false && userEntity.getId() != id) { 
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Not acceptable");
+		}
+
+		// 친구 맞음
+		//SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+		//Date cre_lt_date = transFormat.parse(created_at_lt);
+		//Date cre_gt_date = transFormat.parse(created_at_gt);
+		return sleepService.getPeroidByUserId(id, p, created_at_lt, created_at_gt);
+	}
+	
 	@RequestMapping(value = "/{id}/gps")
 	public Iterable<GPSEntity> getGPS(
 		@PathVariable Long id,
