@@ -17,7 +17,7 @@ public interface SleepRepository extends PagingAndSortingRepository<SleepEntity,
 	Page<SleepEntity> findTopByUserId(@Param("userId")Long userId, Pageable pageable);
     
     @Query(value="select * from (select * from sleep where user_id = :userId) R "
-    		+ "where R.wake_time between :cre_lt and :cre_gt", nativeQuery=true)
+    		+ "where R.wake_time between :cre_lt and :cre_gt order by created_at desc", nativeQuery=true)
     Page<SleepEntity> findPeriodByUserId(@Param("userId")Long userId, Pageable pageable, @Param("cre_lt")String created_at_lt, @Param("cre_gt")String created_at_gt);
 
 } 
